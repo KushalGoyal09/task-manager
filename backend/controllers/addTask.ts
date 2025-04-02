@@ -4,7 +4,10 @@ import type { Response, Task } from "../types";
 const db = new PrismaClient();
 
 export const addTask = async (
-  task: Task,
+  task: {
+    title: string;
+    description: string | null;
+  },
   userId: string
 ): Promise<Response<Task>> => {
   const { data, error } = await tryCatchWrapper(
@@ -12,7 +15,6 @@ export const addTask = async (
       data: {
         title: task.title,
         description: task.description,
-        status: task.status,
         userId: userId,
       },
     })

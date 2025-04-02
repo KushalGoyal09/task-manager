@@ -4,13 +4,18 @@ import type { Response, Task } from "../types";
 const db = new PrismaClient();
 
 export const editTask = async (
-  task: Task,
-  userId: string
+  task: {
+    title: string;
+    description: string | null;
+    status: boolean;
+  },
+  userId: string,
+  taskId: string
 ): Promise<Response<Task>> => {
   const { data, error } = await tryCatchWrapper(
     db.task.update({
       where: {
-        id: task.id,
+        id: taskId,
         userId: userId,
       },
       data: {
