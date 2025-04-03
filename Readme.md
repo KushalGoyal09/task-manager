@@ -29,7 +29,7 @@ This is a full-stack task management application built with a React-based fronte
 
    ```bash
    cd backend
-   node install
+   npm install
    ```
 
 3. Set up the database:
@@ -68,7 +68,7 @@ This is a full-stack task management application built with a React-based fronte
 
 2. Start the backend server:
    ```bash
-   node run dev
+   npm run dev
    ```
 
 The backend server will run on `http://localhost:3000`.
