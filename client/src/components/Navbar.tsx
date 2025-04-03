@@ -3,6 +3,7 @@ import { RootState } from "@/store/store";
 import { useAppDispatch, useAppSelector } from "@/hooks/reduxHooks";
 import { Button } from "./ui/button";
 import { logout } from "@/store/slices/userSlice";
+import { CheckCircle } from "lucide-react";
 
 export default function Navbar() {
   const { username, isLoggedIn } = useAppSelector(
@@ -17,9 +18,12 @@ export default function Navbar() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <Link to={"/"}>
-            <h1 className="text-xl font-semibold text-gray-900">
-              Task Manager
-            </h1>
+            <div className="flex items-center">
+              <CheckCircle className="h-8 w-8 text-blue-600" />
+              <span className="ml-2 text-xl font-bold text-gray-900">
+                TaskMaster
+              </span>
+            </div>
           </Link>
 
           <div className="flex items-center space-x-4">
