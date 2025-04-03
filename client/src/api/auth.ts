@@ -1,18 +1,25 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Response, User } from "../types";
 
 export const login = async (
-  email: string,
+  username: string,
   password: string
 ): Promise<Response<string>> => {
   try {
-    const { data } = await axios.post("/api/auth/login", { email, password });
+    const { data } = await axios.post("/api/auth/login", {
+      username,
+      password,
+    });
     return data;
   } catch (error) {
     console.error("Error logging in:", error);
     return {
       success: false,
-      message: "An error occurred",
+      message: `${
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : "An error occurred"
+      }`,
       data: null,
     };
   }
@@ -20,13 +27,13 @@ export const login = async (
 
 export const register = async (
   name: string,
-  email: string,
+  username: string,
   password: string
 ): Promise<Response<null>> => {
   try {
     const { data } = await axios.post("/api/auth/register", {
       name,
-      email,
+      username,
       password,
     });
     return data;
@@ -34,13 +41,18 @@ export const register = async (
     console.error("Error registering:", error);
     return {
       success: false,
-      message: "An error occurred",
+      message: `${
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : "An error occurred"
+      }`,
       data: null,
     };
   }
 };
 
 export const getMe = async (): Promise<Response<User>> => {
+  console.log("getMe");
   try {
     const { data } = await axios.get("/api/auth/me", {
       headers: {

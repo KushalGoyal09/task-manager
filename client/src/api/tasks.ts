@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { Response, Task } from "../types";
 
 const getAuthToken = (): string | null => {
@@ -21,7 +21,11 @@ export const addTask = async (task: {
     console.error("Error adding task:", error);
     return {
       success: false,
-      message: "An error occurred",
+      message: `${
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : "An error occurred"
+      }`,
       data: null,
     };
   }
@@ -47,7 +51,11 @@ export const editTask = async (
     console.error("Error editing task:", error);
     return {
       success: false,
-      message: "An error occurred",
+      message: `${
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : "An error occurred"
+      }`,
       data: null,
     };
   }
@@ -66,7 +74,11 @@ export const deleteTask = async (taskId: string): Promise<Response<null>> => {
     console.error("Error deleting task:", error);
     return {
       success: false,
-      message: "An error occurred",
+      message: `${
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : "An error occurred"
+      }`,
       data: null,
     };
   }
@@ -85,7 +97,11 @@ export const getTasks = async (): Promise<Response<Task[]>> => {
     console.error("Error getting tasks:", error);
     return {
       success: false,
-      message: "An error occurred",
+      message: `${
+        error instanceof AxiosError
+          ? error.response?.data.message
+          : "An error occurred"
+      }`,
       data: null,
     };
   }

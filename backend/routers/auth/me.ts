@@ -1,13 +1,13 @@
 import { Router } from "express";
-import type { Response, Request } from "express";
-import { login as loginController } from "../../controllers/login";
-import { z } from "zod";
+import type { Response } from "express";
 import { tryCatchWrapper } from "../../utils/tryCatchWrapper";
 import type { AuthRequest } from "../../types";
 import { getMe } from "../../controllers/me";
+import authMiddleware from "../../middleware/auth";
 const meRouter = Router();
 
 const me = async (req: AuthRequest, res: Response) => {
+  console.log("me");
   const userId = req.userId;
   if (!userId) {
     res.status(401).json({
@@ -30,6 +30,6 @@ const me = async (req: AuthRequest, res: Response) => {
   res.status(statusCode).json(data);
 };
 
-meRouter.post("/me", me);
+meRouter.get("/me", authMiddleware, me);
 
 export default meRouter;
